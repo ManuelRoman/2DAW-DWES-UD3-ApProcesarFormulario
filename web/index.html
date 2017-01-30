@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ejercicio: Procesar formulario con MVC</title>
+<style>
+	body{
+	text-align: center;
+	}
+	div{
+	position: absolute;
+	left: 35%;
+	}
+	#login{
+	display: none;
+	left: 35%;
+	}
+	#registro{
+	display: none;
+	left: 35%;
+	}
+</style>
+<script>
+function mostrarLogin() {
+    document.getElementById('login').style.display='inline';
+    document.getElementById('general').style.display='none';
+}
+function mostrarRegistro() {
+    document.getElementById('registro').style.display='inline';
+    document.getElementById('general').style.display='none';
+}
+</script>
+
+</head>
+<body>
+	<div id="general">
+	<button onclick="mostrarLogin()">Formulario de logueo</button><br/>
+	<button onclick="mostrarRegistro()">Formulario de Registro</button>
+	<form action="/procesarformulario/controlador" method="post">
+		<input type="hidden" name="accion" value="info">
+		<input type="submit" value="Info">
+	</form>
+	</div>
+	<!--Formulario de loguin-->
+	<div id="login">
+	<form action="/procesarformulario/controlador" method="post">
+		<label for="login2">Login usuario:</label><input id="login2" type="text" name="login" maxlength="10" placeholder="Máximo 10" required="required"><br>
+		<label for="clave">Clave:</label><input id="clave" type="password" name="clave" maxlength="10" placeholder="Máximo 10" required="required" autocomplete="off"><br>
+		<input type="hidden" name="accion" value="login">
+		<input type="submit" value="Login">
+	</form>
+	<form action="/procesarformulario/controlador" method="post">
+		<input type="hidden" name="accion" value="index">
+		<input type="submit" value="Volver al inicio">
+	</form>	
+	</div>
+	<!--Formulario de registro-->
+	<div id="registro">
+	<form action="/procesarformulario/controlador" method="post">
+		<label for="login2">Login usuario:</label><input id="login2" type="text" name="login" maxlength="10" placeholder="Máximo 10" required="required"><br>
+		<label for="clave">Clave:</label><input id="clave" type="password" name="clave" maxlength="10" placeholder="Máximo 10" required="required" autocomplete="off"><br>
+		<input type="hidden" name="accion" value="registro">
+		<input type="submit" value="Registro">
+	</form>
+	<form action="/procesarformulario/controlador" method="post">
+		<input type="hidden" name="accion" value="index">
+		<input type="submit" value="Volver al inicio">
+	</form>
+	</div>
+</body>
+</html>
