@@ -44,8 +44,8 @@ function mostrarRegistro() {
 	<!--Formulario de loguin-->
 	<div id="login">
 	<form action="/procesarformulario/controlador" method="post">
-		<label for="login2">Login usuario:</label><input id="login2" type="text" name="login" maxlength="10" placeholder="Máximo 10" required="required"><br>
-		<label for="clave">Clave:</label><input id="clave" type="password" name="clave" maxlength="10" placeholder="Máximo 10" required="required" autocomplete="off"><br>
+		<label for="login2">Login usuario:</label><input id="login2" type="text" name="login" maxlength="10" placeholder="Máximo 10" required="required" pattern="\S*"><br>
+		<label for="clave">Clave:</label><input id="clave" type="password" name="clave" maxlength="10" placeholder="Máximo 10" required="required" autocomplete="off" pattern="\S*"><br>
 		<input type="hidden" name="accion" value="login">
 		<input type="submit" value="Login">
 	</form>
@@ -57,8 +57,8 @@ function mostrarRegistro() {
 	<!--Formulario de registro-->
 	<div id="registro">
 	<form action="/procesarformulario/controlador" method="post">
-		<label for="login2">Login usuario:</label><input id="login2" type="text" name="login" maxlength="10" placeholder="Máximo 10" required="required"><br>
-		<label for="clave">Clave:</label><input id="clave" type="password" name="clave" maxlength="10" placeholder="Máximo 10" required="required" autocomplete="off"><br>
+		<label for="login2">Login usuario:</label><input id="login2" type="text" name="login" maxlength="10" placeholder="Máximo 10" required="required" pattern="\S*"><br>
+		<label for="clave">Clave:</label><input id="clave" type="password" name="clave" maxlength="10" placeholder="Máximo 10" required="required" autocomplete="off" pattern="\S*"><br>
 		<input type="hidden" name="accion" value="registro">
 		<input type="submit" value="Registro">
 	</form>

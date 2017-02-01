@@ -39,9 +39,9 @@ public class Controlador extends HttpServlet {
 			this.dataSource = (DataSource) initCtx.lookup(urlDataSource);
 		} catch (NamingException ne) {
 			System.out.println("Error en el método init del servlet. " + ne.getMessage());
-			sc.setInitParameter("appOperativa", "false");
+			sc.setAttribute("appOperativa", "false");
 		}
-		sc.setInitParameter("appOperativa", "true");
+		sc.setAttribute("appOperativa", "true");
 	}
 
 	/**
@@ -57,8 +57,7 @@ public class Controlador extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (sc.getInitParameter("appOperativa").equals("true")) {
-			HttpSession sesion = request.getSession();
+		if (sc.getAttribute("appOperativa").equals("true")) {
 			AyudaSolicitud ayudaSol = new AyudaSolicitud(request);
 			Accion accion = ayudaSol.getAccion();
 			accion.setSc(sc);

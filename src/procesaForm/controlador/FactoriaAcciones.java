@@ -5,7 +5,7 @@ import procesaForm.modelo.acciones.*;
 /**
  * Encapsula la creacción de acciones
  */
-public class FactoriaAcciones {
+public abstract class FactoriaAcciones {
 
 	/**
 	 * Método estático que crea un objeto acción.
@@ -14,15 +14,17 @@ public class FactoriaAcciones {
 	 */
 	public static Accion creaAccion(String accion) {
 		Accion accionSeleccionada = new AccionIndex();
-		switch (accion) {
-		case "login":
-			accionSeleccionada = new AccionLogin();
-			break;
-		case "registro":
-			accionSeleccionada = new AccionRegistro();
-			break;
-		case "info":
-			accionSeleccionada = new AccionInfo();
+		if (accion != null) {
+			switch (accion) {
+			case "login":
+				accionSeleccionada = new AccionLogin();
+				break;
+			case "registro":
+				accionSeleccionada = new AccionRegistro();
+				break;
+			case "info":
+				accionSeleccionada = new AccionInfo();
+			}
 		}
 		return accionSeleccionada;
 	}

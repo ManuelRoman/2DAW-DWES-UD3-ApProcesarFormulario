@@ -82,6 +82,13 @@ public class AccionRegistro implements Accion {
 			resultado= false;
 			error = be;
 			be.printStackTrace();
+		} finally{
+			try {
+				beanDAO.close();
+			} catch (SQLException sqle) {
+				error = new BeanError(sqle.getErrorCode(),"Error al cerrar la conexión con la base de datos");
+				sqle.printStackTrace();
+			}
 		}
 		if (resultado==true)
 			vista = vistaOK;
