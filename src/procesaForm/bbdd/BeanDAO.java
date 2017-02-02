@@ -26,14 +26,16 @@ public class BeanDAO implements DAO {
 
 	/**
 	 * Constructor que recibe el DataSource
+	 * 
 	 * @param dsBdValidaLogin
 	 */
 	public BeanDAO(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	
+
 	/**
 	 * Proceso que crea la conexión con la base de datos.
+	 * 
 	 * @return la conexión
 	 * @throws SQLException
 	 */
@@ -46,9 +48,10 @@ public class BeanDAO implements DAO {
 	}
 
 	/**
-     * Proceso que cierra la conexión con la base de datos.
-     * @throws SQLException
-     */
+	 * Proceso que cierra la conexión con la base de datos.
+	 * 
+	 * @throws SQLException
+	 */
 	@Override
 	public void close() throws SQLException {
 		if (conexion != null) {
@@ -60,8 +63,9 @@ public class BeanDAO implements DAO {
 
 	/**
 	 * Proceso que comprueba si existe un usuario(login), en la base de datos
+	 * 
 	 * @param login
-	 * @return devuelve true si existe 
+	 * @return devuelve true si existe
 	 * @throws SQLException
 	 */
 	@Override
@@ -88,8 +92,9 @@ public class BeanDAO implements DAO {
 	}
 
 	/**
-	 * Proceso que obtiene los datos del usuario de la base de datos, si no existe el login 
-	 * o la clave es errónea lanza una excepción
+	 * Proceso que obtiene los datos del usuario de la base de datos, si no
+	 * existe el login o la clave es errónea lanza una excepción
+	 * 
 	 * @param login
 	 * @param clave
 	 * @return devuelve un objeto BeanUsuario
@@ -103,32 +108,38 @@ public class BeanDAO implements DAO {
 			getConexion();
 			conexionNula = true;
 		}
-		BeanUsuario usuario = new BeanUsuario();
-		Statement st = conexion.createStatement();
-		ResultSet rs = st.executeQuery("select login,clave from usuario where login = '" + login + "'");
-		// Se comprueba si existe el login
-		if (rs.next()) {
-			// Se comprueba si no coincide la clave y si coincide se obtiene el
-			// nombre
-			if (!rs.getString("clave").equals(clave)) {
-				throw new BeanError(3, "La clave no coincide.");
+		BeanUsuario usuario = null;
+		Statement st = null;
+		try {
+			st = conexion.createStatement();
+			ResultSet rs = st.executeQuery("select login,clave from usuario where login = '" + login + "'");
+			// Se comprueba si existe el login
+			if (rs.next()) {
+				// Se comprueba si no coincide la clave y si coincide se obtiene el nombre
+				if (!rs.getString("clave").equals(clave)) {
+					throw new BeanError(3, "La clave no coincide.");
+				} else {
+					usuario = new BeanUsuario(rs.getString("login"), rs.getString("clave"));
+				}
 			} else {
-				usuario = new BeanUsuario(rs.getString("login"), rs.getString("clave"));
+				throw new BeanError(4, "El login no existe.");
 			}
-		} else {
-			throw new BeanError(4, "El login no existe.");
-		}
-		if (st != null) {
-			st = null;
-			if (conexionNula) {
-				close();
+		} finally {
+			if (st != null) {
+				st = null;
+				if (conexionNula) {
+					close();
+				}
 			}
+
 		}
 		return usuario;
 	}
 
 	/**
-	 * Proceso que inserta un usuario en la base de datos, si ya existe el logín lanza una excepción.
+	 * Proceso que inserta un usuario en la base de datos, si ya existe el logín
+	 * lanza una excepción.
+	 * 
 	 * @param usuario
 	 * @throws SQLException
 	 * @throws BeanError

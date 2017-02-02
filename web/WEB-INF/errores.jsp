@@ -24,6 +24,7 @@
     	</c:when>
     	<c:otherwise>
        	 	<p><c:out value="${param.pagOrigen}" default="Error"/></p>
+       	 	<p><c:out value="${exception.toString()}" default="Error"/></p>
        	 	<p><%=exception.toString() %></p>
     	</c:otherwise>
 	</c:choose>

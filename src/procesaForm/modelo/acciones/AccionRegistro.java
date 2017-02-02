@@ -73,7 +73,6 @@ public class AccionRegistro implements Accion {
 				error = new BeanError(5, "El Usuario ya existe, pruebe con otro");
 				resultado = false;
 			}
-			beanDAO.close();
 		} catch (SQLException sqle) {
 			resultado = false;
 			error = new BeanError(2,"Error en conexión a base de datos");
